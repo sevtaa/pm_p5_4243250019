@@ -19,7 +19,7 @@ class KartuKontak extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.phone_android),
             title: Text('WhatsApp Order'),
-            subtitle: Text('+62 812-9900-1122'),
+            subtitle: Text('+62 821-6687-6207'),
           ),
           Divider(height: 1),
           ListTile(

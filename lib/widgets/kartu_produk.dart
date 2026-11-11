@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../models/produk_model.dart';
-import '../screens/detail_produk_screen.dart'; // Impor halaman detail
 import 'tombol_favorit.dart';
 
 class KartuProduk extends StatelessWidget {
@@ -14,35 +14,45 @@ class KartuProduk extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: ListTile(
-        onTap: () {
-          // Navigasi ke halaman detail saat diklik
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailProdukScreen(produk: produk),
-            ),
-          );
-        },
+        onTap: () => context.go('/produk/${produk.id}'),
         leading: CircleAvatar(
-          backgroundColor: Colors.pink.shade100,
-          child: const Icon(Icons.cookie, color: Colors.pink),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          child: Icon(
+            Icons.cookie,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         title: Text(
           produk.nama,
-          style: Theme.of(context).textTheme.titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(produk.deskripsi),
-            const SizedBox(height: 4),
             Text(
-              produk.harga,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+              produk.deskripsi,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  produk.harga,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Chip(
+                  label: Text(
+                    produk.kategori,
+                    style: const TextStyle(fontSize: 10),
+                  ),
+                  visualDensity: VisualDensity.compact,
+                ),
+              ],
             ),
           ],
         ),

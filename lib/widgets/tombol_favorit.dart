@@ -16,7 +16,7 @@ class _TombolFavoritState extends State<TombolFavorit> {
     return IconButton(
       icon: Icon(
         _isFavorit ? Icons.favorite : Icons.favorite_border,
-        color: _isFavorit ? Colors.pink : null,
+        color: _isFavorit ? Colors.pinkAccent : null,
       ),
       onPressed: () {
         setState(() {
@@ -27,8 +27,8 @@ class _TombolFavoritState extends State<TombolFavorit> {
           SnackBar(
             content: Text(
               _isFavorit
-                  ? '${widget.namaProduk} masuk ke daftar favorit ❤️'
-                  : '${widget.namaProduk} dihapus dari favorit',
+                  ? '${widget.namaProduk} ditambahkan ke Favorit ❤️'
+                  : '${widget.namaProduk} dihapus dari Favorit',
             ),
             duration: const Duration(seconds: 1),
           ),

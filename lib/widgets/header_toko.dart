@@ -17,17 +17,15 @@ class HeaderToko extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             child: Icon(
               Icons.cake,
-              size: 55,
+              size: 50,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(height: 12),
           Text(
             namaToko,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            style: Theme.of(context).textTheme.headlineMedium
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(

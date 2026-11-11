@@ -1,65 +1,122 @@
 import 'package:flutter/material.dart';
 
 import '../models/produk_model.dart';
-import '../widgets/header_toko.dart';
-import '../widgets/kartu_kontak.dart';
-import '../widgets/kartu_produk.dart';
 
 class BerandaScreen extends StatelessWidget {
-  BerandaScreen({super.key});
+  final bool isDarkMode;
+  final Function(bool) onThemeChanged;
 
-  final List<ProdukModel> daftarMenu = [
-    ProdukModel(
-      nama: 'Ichigo Daifuku Mochi',
-      harga: 'Rp 15.000',
-      kategori: 'Signature Mochi',
-      deskripsi: 'Mochi lembut dengan isi pasta cokelat & buah stroberi utuh.',
-    ),
-    ProdukModel(
-      nama: 'Matcha Boba Mochi Bites',
-      harga: 'Rp 18.000',
-      kategori: 'Signature Mochi',
-      deskripsi: 'Mochi bites dengan saus krim matcha dan boba kenyal.',
-    ),
-    ProdukModel(
-      nama: 'Mango Cream Mille Crepe',
-      harga: 'Rp 22.000',
-      kategori: 'Sweet Treats',
-      deskripsi:
-          'Kue lapis berlapis krim murni segar dan potongan manga manis.',
-    ),
-    ProdukModel(
-      nama: 'Soft Baked Red Velvet Cookie',
-      harga: 'Rp 12.000',
-      kategori: 'Cookies',
-      deskripsi: 'Soft cookie hangat dengan lelehan cream cheese di dalamnya.',
-    ),
-  ];
+  const BerandaScreen({
+    super.key,
+    required this.isDarkMode,
+    required this.onThemeChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final warnaTeks = Theme.of(context).colorScheme.onSurface;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mochimelt Sweet Bar'),
+        title: const Text(
+          'Mochimelt Sweet Bar',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-      ),
-      body: ListView(
-        children: [
-          const HeaderToko(
-            namaToko: 'Mochimelt Sweet Bar',
-            slogan: 'The Softest Bite of Pure Happiness ✨',
+        backgroundColor: Colors.pinkAccent,
+        foregroundColor: Colors.white,
+        actions: [
+          IconButton(
+            tooltip: isDarkMode ? 'Tema Terang' : 'Tema Gelap',
+            icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () => onThemeChanged(!isDarkMode),
           ),
-          const KartuKontak(),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
-            child: Text(
-              'Pilihan Menu Terfavorit',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          ...daftarMenu.map((item) => KartuProduk(produk: item)),
-          const SizedBox(height: 20),
         ],
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Welcome to Mochimelt!',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.pinkAccent,
+              ),
+            ),
+
+            const SizedBox(height: 8),
+
+            Text(
+              'Temukan camilan manis favoritmu hari ini.',
+              style: TextStyle(fontSize: 14, color: warnaTeks),
+            ),
+
+            const SizedBox(height: 24),
+
+            Text(
+              'Our Products',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: warnaTeks,
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: daftarProdukDummy.length,
+                itemBuilder: (context, index) {
+                  final produk = daftarProdukDummy[index];
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          produk.kategori,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Colors.pinkAccent,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+
+                        const SizedBox(height: 4),
+
+                        Text(
+                          produk.nama,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: warnaTeks,
+                          ),
+                        ),
+
+                        const SizedBox(height: 4),
+
+                        Text(
+                          produk.harga,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.pinkAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
